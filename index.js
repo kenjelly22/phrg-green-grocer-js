@@ -29,11 +29,9 @@ const applyCoupons = (cart, coupons) => {
           cart[`${item} W/COUPON`].price = coupon.cost;
           cart[`${item} W/COUPON`].count = 1;
           cart[item].count -= coupon.num;
-        } else if (cart[item].count >= coupon.num) {
+        } else {
           cart[`${item} W/COUPON`].count++;
           cart[item].count -= coupon.num;
-        } else {
-          return cart;
         }
       }
     }
