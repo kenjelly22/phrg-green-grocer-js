@@ -10,22 +10,17 @@ const consolidateCart = (cart) => {
     const itemName = Object.keys(item)[0];
     const itemDetails = item[itemName];
 
-    // if (cartObject[item]) {
-    //   return cartObject[item].count++;
-    // }
-    // Object.assign(cartObject, item);
-  }
+    if (cartObject[itemName]) {
+      cartObject[itemName].count++;
+    } else {
+      cartObject[itemName] = { ...itemDetails, count: 1};
+    }
+ }
 
-  debugger;
+  return cartObject;
 
-  // loop through array
-  // return Object
 };
 
-// 1) adds a count of one to each item when there are no duplicates
-// 2) increments count when there are multiple items
-
-consolidateCart(cart);
 
 const applyCoupons = (cart, coupons) => {
   // code here
