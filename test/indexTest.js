@@ -78,6 +78,7 @@ describe("Grocer", function () {
         })
 
         it("adds a new key, value pair to the cart hash called 'ITEM NAME W/COUPON'", function () {
+          console.log(avocadoResult)
           expect(Object.keys(avocadoResult)).to.include("AVOCADO W/COUPON")
         })
 
