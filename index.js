@@ -1,7 +1,7 @@
 const cart = [
-  { AVOCADO: { price: 3.0, clearance: true } },
-  { AVOCADO: { price: 3.0, clearance: true } },
-  { KALE: { price: 3.0, clearance: false } },
+  {AVOCADO: {price: 3.0, clearance: true}},
+  {AVOCADO: {price: 3.0, clearance: true}},
+  {KALE: {price: 3.0, clearance: false}},
 ];
 
 const consolidateCart = (cart) => {
@@ -13,7 +13,7 @@ const consolidateCart = (cart) => {
     if (cartObject[itemName]) {
       cartObject[itemName].count++;
     } else {
-      cartObject[itemName] = { ...itemDetails, count: 1 };
+      cartObject[itemName] = {...itemDetails, count: 1};
     }
   }
 
@@ -25,7 +25,7 @@ const applyCoupons = (cart, coupons) => {
     for (const coupon of coupons) {
       if (item === coupon.item && cart[item].count >= coupon.num) {
         if (!cart[`${item} W/COUPON`]) {
-          cart[`${item} W/COUPON`] = { ...cart[coupon.item] };
+          cart[`${item} W/COUPON`] = {...cart[coupon.item]};
           cart[`${item} W/COUPON`].price = coupon.cost;
           cart[`${item} W/COUPON`].count = 1;
           cart[item].count -= coupon.num;
@@ -42,7 +42,12 @@ const applyCoupons = (cart, coupons) => {
 };
 
 const applyClearance = (cart) => {
-  // code here
+  for (const item in cart) {
+    if (cart[item].clearance === true) {
+      cart[item].price = cart[item].price - (cart[item].price * 20) / 100;
+    }
+  }
+  return cart;
 };
 
 const checkout = (cart, coupons) => {
