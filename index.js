@@ -49,5 +49,20 @@ const applyClearance = (cart) => {
 };
 
 const checkout = (cart, coupons) => {
-  // code here
+  const consolidatedCart = consolidateCart(cart)
+  applyCoupons(consolidatedCart, coupons);
+  applyClearance(consolidatedCart);
+
+  let totalCost = 0;
+
+  for (const item in consolidatedCart) {
+    totalCost += consolidatedCart[item].price * consolidatedCart[item].count;
+  }
+
+  if (totalCost > 100) {
+    totalCost -= ((totalCost * 10) / 100);
+  }
+
+  return totalCost;
+
 };
