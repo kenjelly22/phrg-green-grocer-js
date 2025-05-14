@@ -40,7 +40,12 @@ const applyCoupons = (cart, coupons) => {
 };
 
 const applyClearance = (cart) => {
-  // code here
+  for (const item in cart) {
+    if (cart[item].clearance === true) {
+      cart[item].price = cart[item].price - (cart[item].price * 20) / 100;
+    }
+  }
+  return cart;
 };
 
 const checkout = (cart, coupons) => {
