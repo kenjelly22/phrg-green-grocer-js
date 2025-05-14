@@ -42,14 +42,15 @@ const applyCoupons = (cart, coupons) => {
 const applyClearance = (cart) => {
   for (const item in cart) {
     if (cart[item].clearance === true) {
-      cart[item].price = cart[item].price - (cart[item].price * 20) / 100;
+      const itemPrice = cart[item].price;
+      cart[item].price = itemPrice - (itemPrice * 20) / 100;
     }
   }
   return cart;
 };
 
 const checkout = (cart, coupons) => {
-  const consolidatedCart = consolidateCart(cart)
+  const consolidatedCart = consolidateCart(cart);
   applyCoupons(consolidatedCart, coupons);
   applyClearance(consolidatedCart);
 
@@ -60,9 +61,8 @@ const checkout = (cart, coupons) => {
   }
 
   if (totalCost > 100) {
-    totalCost -= ((totalCost * 10) / 100);
+    totalCost -= (totalCost * 10) / 100;
   }
 
   return totalCost;
-
 };
