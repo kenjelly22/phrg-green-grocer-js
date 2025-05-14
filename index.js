@@ -29,11 +29,9 @@ const applyCoupons = (cart, coupons) => {
           cart[`${item} W/COUPON`].price = coupon.cost;
           cart[`${item} W/COUPON`].count = 1;
           cart[item].count -= coupon.num;
-        } else if (cart[item].count >= coupon.num) {
+        } else {
           cart[`${item} W/COUPON`].count++;
           cart[item].count -= coupon.num;
-        } else {
-          return cart;
         }
       }
     }
@@ -51,5 +49,20 @@ const applyClearance = (cart) => {
 };
 
 const checkout = (cart, coupons) => {
-  // code here
+  const consolidatedCart = consolidateCart(cart)
+  applyCoupons(consolidatedCart, coupons);
+  applyClearance(consolidatedCart);
+
+  let totalCost = 0;
+
+  for (const item in consolidatedCart) {
+    totalCost += consolidatedCart[item].price * consolidatedCart[item].count;
+  }
+
+  if (totalCost > 100) {
+    totalCost -= ((totalCost * 10) / 100);
+  }
+
+  return totalCost;
+
 };
